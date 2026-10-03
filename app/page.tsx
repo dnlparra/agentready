@@ -28,102 +28,76 @@ function CopyBlock({ label, value, mono = true }: { label: string; value: string
 export default function Home() {
   return (
     <>
-      <header className="border-b border-neutral-200 bg-white">
-        <nav className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
-          <div className="flex items-center gap-2.5">
-            <span className="inline-block size-2 rounded-full bg-emerald-500" aria-hidden="true" />
-            <span className="text-[15px] font-semibold tracking-tight text-neutral-900">AgentReady</span>
+      {/* Hero */}
+      <section className="border-b border-neutral-200 bg-white">
+        <div className="mx-auto max-w-6xl px-6 py-16 md:py-20">
+          <p className="mb-3 text-[13px] font-medium tracking-widest uppercase text-emerald-600">
+            MCP Server
+          </p>
+          <h1 className="max-w-2xl text-[clamp(2rem,5vw,3rem)] font-bold leading-[1.1] tracking-tight text-neutral-900" style={{ textWrap: "balance" }}>
+            Local Businesses,{" "}
+            <span className="text-neutral-400">Discoverable by AI Agents</span>
+          </h1>
+          <p className="mt-5 max-w-xl text-[17px] leading-relaxed text-neutral-500">
+            One endpoint connects any MCP-compatible agent to restaurants, clinics, salons, and services in Mexico. Search by meaning, location, or capability. Book in real time.
+          </p>
+          <div className="mt-8 flex flex-wrap items-center gap-3">
+            <code className="rounded-lg border border-neutral-200 bg-neutral-50 px-4 py-2.5 font-mono text-sm text-neutral-700">
+              {MCP_URL}
+            </code>
+            <span className="text-xs text-neutral-400">Streamable HTTP &middot; No auth required</span>
           </div>
-          <div className="flex items-center gap-5 text-[13px] text-neutral-500">
-            <a href="/onboard" className="transition-colors duration-150 hover:text-neutral-900 focus-visible:text-neutral-900">
-              Onboard a Business
-            </a>
-            <a href="/api/health" className="transition-colors duration-150 hover:text-neutral-900 focus-visible:text-neutral-900">
-              Health
-            </a>
-            <a
-              href="https://github.com/dnlparra/agentready"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="transition-colors duration-150 hover:text-neutral-900 focus-visible:text-neutral-900"
-            >
-              GitHub
-            </a>
-          </div>
-        </nav>
-      </header>
+        </div>
+      </section>
 
-      <main id="main" className="flex-1">
-        {/* Hero */}
-        <section className="border-b border-neutral-200 bg-white">
-          <div className="mx-auto max-w-6xl px-6 py-16 md:py-20">
-            <p className="mb-3 text-[13px] font-medium tracking-widest uppercase text-emerald-600">
-              MCP Server
-            </p>
-            <h1 className="max-w-2xl text-[clamp(2rem,5vw,3rem)] font-bold leading-[1.1] tracking-tight text-neutral-900" style={{ textWrap: "balance" }}>
-              Local Businesses,{" "}
-              <span className="text-neutral-400">Discoverable by AI Agents</span>
-            </h1>
-            <p className="mt-5 max-w-xl text-[17px] leading-relaxed text-neutral-500">
-              One endpoint connects any MCP-compatible agent to restaurants, clinics, salons, and services in Mexico. Search by meaning, location, or capability. Book in real time.
-            </p>
-            <div className="mt-8 flex flex-wrap items-center gap-3">
-              <code className="rounded-lg border border-neutral-200 bg-neutral-50 px-4 py-2.5 font-mono text-sm text-neutral-700">
-                {MCP_URL}
-              </code>
-              <span className="text-xs text-neutral-400">Streamable HTTP &middot; No auth required</span>
-            </div>
+      {/* Connect */}
+      <section className="border-b border-neutral-200">
+        <div className="mx-auto max-w-6xl px-6 py-14">
+          <h2 className="mb-8 text-xl font-semibold tracking-tight text-neutral-900">Connect Your Agent</h2>
+          <div className="grid gap-6 md:grid-cols-3">
+            <CopyBlock
+              label="Claude Code"
+              value={`claude mcp add --transport http \\\n  agentready ${MCP_URL}`}
+            />
+            <CopyBlock
+              label="Cursor / Claude Desktop"
+              value={JSON.stringify({ mcpServers: { agentready: { url: MCP_URL } } }, null, 2)}
+            />
+            <CopyBlock
+              label="Any MCP Client"
+              value={`POST ${MCP_URL}\nContent-Type: application/json\nMCP-Protocol-Version: 2025-06-18`}
+            />
           </div>
-        </section>
+          <p className="mt-6 text-xs text-neutral-400">
+            Discovery:{" "}
+            <a href="/.well-known/ard.json" className="underline underline-offset-2 hover:text-neutral-600">/.well-known/ard.json</a>
+            {" "}&middot;{" "}
+            <a href="/agents.json" className="underline underline-offset-2 hover:text-neutral-600">/agents.json</a>
+          </p>
+        </div>
+      </section>
 
-        {/* Connect */}
-        <section className="border-b border-neutral-200">
-          <div className="mx-auto max-w-6xl px-6 py-14">
-            <h2 className="mb-8 text-xl font-semibold tracking-tight text-neutral-900">Connect Your Agent</h2>
-            <div className="grid gap-6 md:grid-cols-3">
-              <CopyBlock
-                label="Claude Code"
-                value={`claude mcp add --transport http \\\n  agentready ${MCP_URL}`}
-              />
-              <CopyBlock
-                label="Cursor / Claude Desktop"
-                value={JSON.stringify({ mcpServers: { agentready: { url: MCP_URL } } }, null, 2)}
-              />
-              <CopyBlock
-                label="Any MCP Client"
-                value={`POST ${MCP_URL}\nContent-Type: application/json\nMCP-Protocol-Version: 2025-06-18`}
-              />
-            </div>
-            <p className="mt-6 text-xs text-neutral-400">
-              Discovery:{" "}
-              <a href="/.well-known/ard.json" className="underline underline-offset-2 hover:text-neutral-600">/.well-known/ard.json</a>
-              {" "}&middot;{" "}
-              <a href="/agents.json" className="underline underline-offset-2 hover:text-neutral-600">/agents.json</a>
-            </p>
+      {/* Tools */}
+      <section className="border-b border-neutral-200 bg-white">
+        <div className="mx-auto max-w-6xl px-6 py-14">
+          <h2 className="mb-8 text-xl font-semibold tracking-tight text-neutral-900">6 Tools</h2>
+          <div className="grid gap-px overflow-hidden rounded-xl border border-neutral-200 bg-neutral-200 md:grid-cols-2 lg:grid-cols-3">
+            {TOOLS.map(([name, title, desc]) => (
+              <article key={name} className="bg-white p-5">
+                <code className="text-[13px] font-medium text-emerald-600">{name}</code>
+                <h3 className="mt-1.5 text-[15px] font-semibold text-neutral-900">{title}</h3>
+                <p className="mt-1 text-[13px] leading-relaxed text-neutral-500">{desc}</p>
+              </article>
+            ))}
           </div>
-        </section>
+        </div>
+      </section>
 
-        {/* Tools */}
-        <section className="border-b border-neutral-200 bg-white">
-          <div className="mx-auto max-w-6xl px-6 py-14">
-            <h2 className="mb-8 text-xl font-semibold tracking-tight text-neutral-900">6 Tools</h2>
-            <div className="grid gap-px overflow-hidden rounded-xl border border-neutral-200 bg-neutral-200 md:grid-cols-2 lg:grid-cols-3">
-              {TOOLS.map(([name, title, desc]) => (
-                <article key={name} className="bg-white p-5">
-                  <code className="text-[13px] font-medium text-emerald-600">{name}</code>
-                  <h3 className="mt-1.5 text-[15px] font-semibold text-neutral-900">{title}</h3>
-                  <p className="mt-1 text-[13px] leading-relaxed text-neutral-500">{desc}</p>
-                </article>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* Architecture (one-liner for judges) */}
-        <section className="border-b border-neutral-200">
-          <div className="mx-auto max-w-6xl px-6 py-10">
-            <p className="text-xs font-medium tracking-widest uppercase text-neutral-400 mb-3">Architecture</p>
-            <pre className="overflow-x-auto rounded-xl border border-neutral-200 bg-white px-6 py-4 font-mono text-[13px] leading-loose text-neutral-600">
+      {/* Architecture */}
+      <section className="border-b border-neutral-200">
+        <div className="mx-auto max-w-6xl px-6 py-10">
+          <p className="mb-3 text-xs font-medium tracking-widest uppercase text-neutral-400">Architecture</p>
+          <pre className="overflow-x-auto rounded-xl border border-neutral-200 bg-white px-6 py-4 font-mono text-[13px] leading-loose text-neutral-600">
 {`Agent  \u2192  Vercel Functions (/api/mcp)
        \u2192  AI Gateway  \u2192  OpenAI (embeddings)
                       \u2192  Claude Sonnet 5.5 (business agents)
@@ -133,26 +107,16 @@ export default function Home() {
                       \u2192  PostGIS (geospatial)
                       \u2192  Realtime (live dashboard)
                       \u2192  RLS (row-level security)`}
-            </pre>
-          </div>
-        </section>
-
-        {/* Live Feed */}
-        <section className="bg-white">
-          <div className="mx-auto max-w-6xl px-6 py-14">
-            <LiveFeed />
-          </div>
-        </section>
-      </main>
-
-      <footer className="border-t border-neutral-200 bg-white">
-        <div className="mx-auto max-w-6xl px-6 py-6 flex flex-wrap items-center justify-between gap-4 text-xs text-neutral-400">
-          <p>Built for Supabase Select 2026</p>
-          <p>
-            Supabase &middot; Vercel &middot; AI SDK 7 &middot; Claude &middot; Gemini &middot; Cursor
-          </p>
+          </pre>
         </div>
-      </footer>
+      </section>
+
+      {/* Live Feed */}
+      <section className="bg-white">
+        <div className="mx-auto max-w-6xl px-6 py-14">
+          <LiveFeed />
+        </div>
+      </section>
     </>
   );
 }
