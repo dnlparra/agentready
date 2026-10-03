@@ -2,7 +2,7 @@
   "name": "AgentReady",
   "description": "Business Discovery MCP Server for AI agents — local businesses in Mexico.",
   "protocols": ["MCP"],
-  "endpoints": { "mcp": "https://REPLACE_WITH_DOMAIN/api/mcp" },
+  "endpoints": { "mcp": "https://agentready-gilt.vercel.app/api/mcp" },
   "auth": "none",
   "capabilities": ["business_search", "business_info", "menu_lookup", "availability_check", "agent_interaction"]
 }
