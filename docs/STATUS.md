@@ -1,52 +1,14 @@
-# AgentReady — Estado del Proyecto (Oct 3, 2026 ~22:25 UTC)
+# AgentReady — Project Status (Oct 3, 2026)
 
 ## Production
 
-| Recurso | URL | Estado |
+| Resource | URL | Status |
 |---|---|---|
-| Homepage / Dashboard | https://agentready-gilt.vercel.app | Live |
+| Homepage | https://agentready-gilt.vercel.app | Live |
 | MCP Endpoint | https://agentready-gilt.vercel.app/api/mcp | 6 tools |
 | Health | https://agentready-gilt.vercel.app/api/health | 15 businesses |
 | Onboarding | https://agentready-gilt.vercel.app/onboard | Functional |
 | GitHub | https://github.com/dnlparra/agentready | Up to date |
-
-## QA Report (by Opus 5.5)
-
-| Test | Result |
-|---|---|
-| Health, tools/list, discovery files | Pass |
-| search_businesses (semantic) | Pass - La Trattoria di Roma first |
-| search_businesses (geo) | Pass - Tacos El Paisa at 0.2 km |
-| get_business | Pass - Full profile with hours |
-| get_menu (dietary filter) | Pass - 6 vegetarian items |
-| check_availability | Pass - available, capacity 56 |
-| contact_agent | Pass - confirmed, code LTD-GRFWJ |
-| list_categories | Pass - 15 businesses, 9 with agent |
-| TypeScript + Build | Pass - No errors |
-| Supabase data integrity | Pass - 15/15 embeddings, 94 items |
-| Dashboard Realtime | Pass - Events appear live |
-| Onboarding (text to profile) | Pass - 14s, 4 items created |
-| Claude Code end-to-end | Pass - Full booking flow |
-| Eve agent | Not tested (macOS EPERM) |
-
-## Known Issues (Non-blocking)
-
-1. `/api/onboard` is open (no `ONBOARD_API_KEY` set) - anyone can spend credits
-2. `contact_agent` replies in Spanish even for English requests (cosmetic)
-3. Low-relevance results appear at bottom of search (e.g., CoWork for "tacos")
-4. `get_menu` with special characters in `search` param may error
-5. Duplicate reservations possible if agent retries
-6. Late-night bookings (01:00) may count against wrong date
-
-## Test Reservations in Production
-
-| Code | Customer | Source |
-|---|---|---|
-| LTD-M9MBF | Daniel | Initial smoke test |
-| LTD-GRFWJ | QA Test | Opus 5.5 verification |
-| LTD-CQZB7 | Daniel | Claude Code e2e test |
-
-> Consider deleting QA reservations before recording the demo video.
 
 ## Build Completion
 
@@ -64,6 +26,69 @@
 | T9 Eve agent | Setup done, not deployed |
 | T10 README | Done |
 | T11 Stripe (bonus) | Not started |
-| UI Redesign | Done (Stripe-like) |
+| UI Redesign | Done (premium, Stripe-like) |
+| Onboard Redesign | Done (structured result card, loading state, animations) |
+| Documentation | Done (WHAT-IS-AGENTREADY, FOLLOW-UP, TESTING-GUIDE) |
+| File organization | Done (planning/ directory for research docs) |
 
-**Overall: ~90% complete. Ready for demo.**
+## QA Report (by Opus 5.5)
+
+| Test | Result |
+|---|---|
+| Health, tools/list, discovery files | Pass |
+| search_businesses (semantic) | Pass |
+| search_businesses (geo) | Pass |
+| get_business | Pass |
+| get_menu (dietary filter) | Pass |
+| check_availability | Pass |
+| contact_agent | Pass |
+| list_categories | Pass |
+| TypeScript + Build | Pass |
+| Supabase data integrity | Pass (15/15 embeddings, 94 items) |
+| Dashboard Realtime | Pass |
+| Onboarding (text to profile) | Pass (14s, structured card display) |
+| Claude Code end-to-end | Pass (full booking flow) |
+| Eve agent | Not tested (macOS EPERM) |
+
+## File Organization
+
+```
+/
+├── README.md                     Project readme
+├── CLAUDE.md                     Agent instructions
+├── AGENTS.md                     Next.js agent rules
+├── docs/
+│   ├── WHAT-IS-AGENTREADY.md     What the MCP does (for agents and businesses)
+│   ├── STATUS.md                 This file
+│   ├── TESTING-GUIDE.md          How to test all 6 tools
+│   ├── FOLLOW-UP.md              What's needed for production
+│   └── PROMPT-OPUS-PROFESSIONAL.md  Prompt for Opus 5.5 to upgrade the project
+├── planning/
+│   ├── RESEARCH.md               Market research (122K chars)
+│   ├── PRD.md                    Product requirements draft
+│   ├── HACKATHON-OVERVIEW.md     Hackathon info and strategy
+│   ├── PROMPT-OPUS-REVIEW.md     Original review prompt for Opus 5.5
+│   └── PROMPT-OPUS-VERIFY.md     QA verification prompt
+├── playbook/                     Opus 5.5's build playbook + reference code
+├── app/                          Next.js pages and API routes
+├── lib/                          Business logic, MCP tools, AI config
+├── scripts/                      Seed script
+├── data/                         Seed data JSON
+├── supabase/                     Schema SQL
+└── public/                       Static files (.well-known/ard.json, agents.json)
+```
+
+## Known Issues
+
+1. `/api/onboard` is open (no `ONBOARD_API_KEY` set)
+2. `contact_agent` replies in Spanish for English requests (cosmetic)
+3. Low-relevance results appear at bottom of search
+4. Duplicate reservations possible if agent retries
+5. Multiple "Tortas La Abuela" entries from testing (clean before demo)
+
+## What's Next
+
+See `docs/FOLLOW-UP.md` for the full production roadmap.
+See `docs/PROMPT-OPUS-PROFESSIONAL.md` for the Opus 5.5 upgrade prompt.
+
+**Overall: ~92% complete for hackathon. Ready for demo.**
