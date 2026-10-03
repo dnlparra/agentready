@@ -173,7 +173,7 @@ export default function OnboardPage() {
               className="block h-44 w-full resize-y rounded-xl border border-neutral-200 bg-white px-4 py-3 text-[14px] leading-relaxed text-neutral-800 placeholder:text-neutral-400 transition-[border-color] duration-150 ease-out focus:border-emerald-400 focus:outline-none focus:ring-2 focus:ring-emerald-100"
               value={doc}
               onChange={(e) => setDoc(e.target.value)}
-              placeholder="Describe the business: name, address, hours, services, prices\u2026"
+              placeholder="Describe the business: name, address, hours, services, prices..."
             />
             <p className="mt-1.5 text-[11px] tabular text-neutral-400">
               {doc.length.toLocaleString()} characters
@@ -234,9 +234,9 @@ export default function OnboardPage() {
             <div className="mx-auto mb-4 flex size-10 items-center justify-center">
               <Spinner />
             </div>
-            <p className="text-[15px] font-semibold text-neutral-900">Analyzing and structuring\u2026</p>
+            <p className="text-[15px] font-semibold text-neutral-900">Analyzing and structuring&hellip;</p>
             <p className="mt-2 max-w-md mx-auto text-[13px] leading-relaxed text-neutral-500">
-              AI is reading the description, extracting the business profile, generating search embeddings, and saving everything to the directory. This usually takes 10\u201320 seconds.
+              AI is reading the description, extracting the business profile, generating search embeddings, and saving everything to the directory. This usually takes 10&ndash;20 seconds.
             </p>
           </div>
         </div>
