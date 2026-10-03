@@ -44,14 +44,7 @@ code, pre {
   font-variant-numeric: tabular-nums;
 }
 
-/* ── Custom easing (Emil Kowalski) ────────────────────── */
-
-:root {
-  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
-  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
-}
-
-/* ── Animations ───────────────────────────────────────── */
+/* ── Keyframes ────────────────────────────────────────── */
 
 @keyframes fade-in-up {
   from { opacity: 0; transform: translateY(8px); }
@@ -72,14 +65,22 @@ code, pre {
   50%      { opacity: 0.4; }
 }
 
-/* ── Utility classes ──────────────────────────────────── */
+/* ── Animation utilities ──────────────────────────────── */
 
 .animate-fade-in-up {
-  animation: fade-in-up 400ms var(--ease-out) both;
+  opacity: 0;
+  animation-name: fade-in-up;
+  animation-duration: 400ms;
+  animation-timing-function: cubic-bezier(0.23, 1, 0.32, 1);
+  animation-fill-mode: forwards;
 }
 
 .animate-fade-in {
-  animation: fade-in 300ms var(--ease-out) both;
+  opacity: 0;
+  animation-name: fade-in;
+  animation-duration: 300ms;
+  animation-timing-function: cubic-bezier(0.23, 1, 0.32, 1);
+  animation-fill-mode: forwards;
 }
 
 .animate-spin-fast {
@@ -87,22 +88,22 @@ code, pre {
 }
 
 .animate-pulse-dot {
-  animation: pulse-dot 2s var(--ease-in-out) infinite;
+  animation: pulse-dot 2s ease-in-out infinite;
 }
 
-/* Stagger children — apply to parent, children get .animate-fade-in-up */
+/* Stagger children */
 .stagger > .animate-fade-in-up:nth-child(1) { animation-delay: 0ms; }
 .stagger > .animate-fade-in-up:nth-child(2) { animation-delay: 60ms; }
-.stagger > .animate-fade-in-up:nth-child(3) { animation-delay: 80ms; }
-.stagger > .animate-fade-in-up:nth-child(4) { animation-delay: 120ms; }
-.stagger > .animate-fade-in-up:nth-child(5) { animation-delay: 160ms; }
-.stagger > .animate-fade-in-up:nth-child(6) { animation-delay: 200ms; }
-.stagger > .animate-fade-in-up:nth-child(7) { animation-delay: 240ms; }
-.stagger > .animate-fade-in-up:nth-child(8) { animation-delay: 280ms; }
+.stagger > .animate-fade-in-up:nth-child(3) { animation-delay: 100ms; }
+.stagger > .animate-fade-in-up:nth-child(4) { animation-delay: 140ms; }
+.stagger > .animate-fade-in-up:nth-child(5) { animation-delay: 180ms; }
+.stagger > .animate-fade-in-up:nth-child(6) { animation-delay: 220ms; }
+.stagger > .animate-fade-in-up:nth-child(7) { animation-delay: 260ms; }
+.stagger > .animate-fade-in-up:nth-child(8) { animation-delay: 300ms; }
 
-/* Button press feedback (Emil Kowalski: scale 0.97 on :active) */
+/* Button press feedback — 160ms ease-out, scale 0.97 */
 .btn-press {
-  transition: transform 160ms var(--ease-out);
+  transition: transform 160ms cubic-bezier(0.23, 1, 0.32, 1);
 }
 .btn-press:active:not(:disabled) {
   transform: scale(0.97);
@@ -111,7 +112,8 @@ code, pre {
 /* Hover effects — only on devices with fine pointer */
 @media (hover: hover) and (pointer: fine) {
   .hover-lift {
-    transition: transform 200ms var(--ease-out), box-shadow 200ms var(--ease-out);
+    transition: transform 200ms cubic-bezier(0.23, 1, 0.32, 1),
+                box-shadow 200ms cubic-bezier(0.23, 1, 0.32, 1);
   }
   .hover-lift:hover {
     transform: translateY(-1px);
@@ -119,7 +121,7 @@ code, pre {
   }
 }
 
-/* Link underline transition */
+/* Link color transition */
 .link-subtle {
   transition: color 150ms ease;
 }
