@@ -1,0 +1,13 @@
+{
+  "version": "0.9",
+  "entries": [
+    {
+      "type": "application/mcp+json",
+      "name": "AgentReady Business Discovery",
+      "url": "https://REPLACE_WITH_DOMAIN/api/mcp",
+      "transport": "streamable-http",
+      "description": "Search and act on local businesses in Mexico (Monterrey): hybrid semantic/geo search, menus with MXN prices, availability, and agent-to-agent reservations.",
+      "tools": ["search_businesses", "get_business", "get_menu", "check_availability", "contact_agent", "list_categories"]
+    }
+  ]
+}
